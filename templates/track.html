@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Track Complaint | CivicConnect{% endblock %}
+{% block content %}
+<section class="form-card narrow">
+    <p class="eyebrow">COMPLAINT TRACKER</p>
+    <h1>Track your report</h1>
+    <p>Enter the complaint ID you received after submitting your report.</p>
+    <form method="POST">
+        <label>Complaint ID
+            <input type="number" name="complaint_id" min="1" placeholder="Example: 1" required>
+        </label>
+        <button class="button" type="submit">Check status</button>
+    </form>
+    {% if searched %}
+        {% if complaint %}
+            <div class="result-card">
+                <h2>Complaint #{{ complaint.id }}</h2>
+                <p><strong>Category:</strong> {{ complaint.category }}</p>
+                <p><strong>Location:</strong> {{ complaint.location }}</p>
+                <p><strong>Submitted:</strong> {{ complaint.created_at }}</p>
+                <p><strong>Status:</strong> <span class="status {{ complaint.status|lower|replace(' ', '-') }}">{{ complaint.status }}</span></p>
+            </div>
+        {% else %}
+            <div class="flash error">No complaint found with that ID.</div>
+        {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

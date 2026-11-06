@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Report Submitted | CivicConnect{% endblock %}
+{% block content %}
+<section class="message-card">
+    <div class="success-mark">✓</div>
+    <p class="eyebrow">REPORT RECEIVED</p>
+    <h1>Thank you for speaking up!</h1>
+    <p>Your complaint has been saved. Keep this number to check its progress.</p>
+    <div class="ticket">Complaint ID: <strong>#{{ complaint_id }}</strong></div>
+    <a class="button" href="{{ url_for('track') }}">Track complaint</a>
+    <a class="text-link" href="{{ url_for('home') }}">Back to home</a>
+</section>
+{% endblock %}

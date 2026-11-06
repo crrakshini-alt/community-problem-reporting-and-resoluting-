@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | CivicConnect{% endblock %}
+{% block content %}
+<section class="form-card narrow">
+    <p class="eyebrow">ADMIN AREA</p>
+    <h1>Admin login</h1>
+    <form method="POST">
+        <label>Username
+            <input name="username" required autocomplete="username">
+        </label>
+        <label>Password
+            <input type="password" name="password" required autocomplete="current-password">
+        </label>
+        <button class="button" type="submit">Login</button>
+    </form>
+    <p class="hint">Demo login: admin / civic123</p>
+</section>
+{% endblock %}

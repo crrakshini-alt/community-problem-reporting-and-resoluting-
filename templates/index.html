@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Report an Issue | CivicConnect{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">YOUR COMMUNITY. YOUR VOICE.</p>
+    <h1>See a problem?<br><span>Let's fix it together.</span></h1>
+    <p>Report local problems like potholes, broken streetlights and overflowing bins. Follow the progress of your report.</p>
+    <a class="button button-light" href="#report-form">Report an issue</a>
+</section>
+
+<section class="form-card" id="report-form">
+    <div class="section-heading">
+        <p class="eyebrow">SUBMIT A REPORT</p>
+        <h2>Tell us what's happening</h2>
+        <p>Fields marked * are required.</p>
+    </div>
+    <form action="{{ url_for('report') }}" method="POST" enctype="multipart/form-data">
+        <div class="form-grid">
+            <label>Your name *
+                <input type="text" name="name" placeholder="Enter your name" required maxlength="80">
+            </label>
+            <label>Email address *
+                <input type="email" name="email" placeholder="you@example.com" required maxlength="120">
+            </label>
+            <label>Issue category *
+                <select name="category" required>
+                    <option value="">Select a category</option>
+                    <option>Road damage</option>
+                    <option>Streetlight</option>
+                    <option>Garbage / waste</option>
+                    <option>Water supply</option>
+                    <option>Drainage</option>
+                    <option>Other</option>
+                </select>
+            </label>
+            <label>Location *
+                <input type="text" name="location" placeholder="Area, street or landmark" required maxlength="180">
+            </label>
+        </div>
+        <label>Description *
+            <textarea name="description" rows="4" placeholder="Explain the issue..." required maxlength="1000"></textarea>
+        </label>
+        <label>Upload a photo (optional, max 5 MB)
+            <input type="file" name="photo" accept=".jpg,.jpeg,.png,.gif,.webp">
+        </label>
+        <button class="button" type="submit">Submit complaint</button>
+    </form>
+</section>
+<section class="info-strip">
+    <div><strong>01</strong><span>Report an issue</span></div>
+    <div><strong>02</strong><span>Admin reviews it</span></div>
+    <div><strong>03</strong><span>Track the progress</span></div>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | CivicConnect{% endblock %}
+{% block content %}
+<div class="dashboard-heading">
+    <div>
+        <p class="eyebrow">CIVICCONNECT ADMIN</p>
+        <h1>Complaint dashboard</h1>
+        <p>Review reports and update their progress.</p>
+    </div>
+    <a class="text-link" href="{{ url_for('admin_logout') }}">Log out</a>
+</div>
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Reporter</th><th>Issue</th><th>Location / Description</th><th>Photo</th><th>Status</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+    {% for item in complaints %}
+        <tr>
+            <td>#{{ item.id }}<br><small>{{ item.created_at }}</small></td>
+            <td>{{ item.name }}<br><small>{{ item.email }}</small></td>
+            <td>{{ item.category }}</td>
+            <td><strong>{{ item.location }}</strong><br>{{ item.description }}</td>
+            <td>
+                {% if item.image %}
+                    <a href="{{ url_for('static', filename='uploads/' ~ item.image) }}" target="_blank">View photo</a>
+                {% else %}No photo{% endif %}
+            </td>
+            <td><span class="status {{ item.status|lower|replace(' ', '-') }}">{{ item.status }}</span></td>
+            <td>
+                <form class="status-form" method="POST" action="{{ url_for('update_status', complaint_id=item.id) }}">
+                    <select name="status">
+                        {% for status in ['Pending', 'In Progress', 'Resolved'] %}
+                            <option value="{{ status }}" {% if item.status == status %}selected{% endif %}>{{ status }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="button small" type="submit">Save</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="7" class="empty">No complaints have been submitted yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
